@@ -1,0 +1,7 @@
+{
+  "substrate.category": "Substrate",
+  "substrate.toggle": "Toggled Substrate",
+  "substrate.toggle.on": "Substrate has been enabled.",
+  "substrate.toggle.off": "Substrate has been disabled.",
+  "substrate.toggle.server": "Substrate is not allowed to work on this server."
+}

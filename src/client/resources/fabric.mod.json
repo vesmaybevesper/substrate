@@ -1,42 +1,38 @@
 {
 	"schemaVersion": 1,
-	"id": "bedrerodium",
-	"version": "${version}",
-	"name": "Bedrerodium",
+	"id": "substrate",
+	"version": "4.0",
+	"name": "Substrate",
 	"description": "Optimization of the bottom layer of the bedrock",
 	"authors": [
-		"kirillirik",
 		"VesMaybeVesper"
 	],
-	"contributors": [
-		"VidTu"
-	],
 	"contact": {
-		"homepage": "https://modrinth.com/mod/bedrerodium",
-		"sources": "https://github.com/vesmaybevesper/Bedrerodium",
-		"issues": "https://github.com/vesmaybevesper/Bedrerodium/issues"
+		"homepage": "https://modrinth.com/mod/substrate",
+		"sources": "https://github.com/vesmaybevesper/substrate",
+		"issues": "https://github.com/vesmaybevesper/substrate/issues"
 	},
 	"license": "LGPL-3.0",
-	"icon": "assets/bedrerodium/icon.png",
+	"icon": "assets/substrate/icon.png",
 	"environment": "client",
 	"entrypoints": {
 		"client": [
-			"vesper.bedrerodium.Bedrodium"
+			"vesper.substrate.Substrate"
 		]
 	},
 	"mixins": [
-		"bedrerodium.mixins.json"
+		"substrate.mixins.json"
 	],
 	"depends": {
 		"fabricloader": "*",
 		"fabric-api": "*",
-		"minecraft": ">=1.21.4",
+		"minecraft": "1.21.1",
 		"sodium": "*"
 	},
 	"custom": {
 		"modmenu": {
 			"links": {
-				"modmenu.modrinth": "https://modrinth.com/mod/bedrerodium"
+				"modmenu.modrinth": "https://modrinth.com/mod/substrate"
 			}
 		}
 	}

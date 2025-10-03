@@ -1,8 +1,0 @@
-{
-  "substrate.category": "Substratium",
-  "substrate.toggle": "Перемкнути Substratium",
-  "substrate.toggle.on": "Substratium увімкнено.",
-  "substrate.toggle.off": "Substratium вимкнено.",
-  "substrate.toggle.server": "Substratium заборонено працювати на цьому сервері.",
-  "modmenu.descriptionTranslation.substrate": "Оптимізація нижнього шару корінної породи"
-}
