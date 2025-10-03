@@ -1,0 +1,8 @@
+{
+  "substrate.category": "Substrate",
+  "substrate.toggle": "Перемкнути Substrate",
+  "substrate.toggle.on": "Substrate увімкнено.",
+  "substrate.toggle.off": "Substrate вимкнено.",
+  "substrate.toggle.server": "Substrate заборонено працювати на цьому сервері.",
+  "modmenu.descriptionTranslation.substrate": "Оптимізація нижнього шару корінної породи"
+}
