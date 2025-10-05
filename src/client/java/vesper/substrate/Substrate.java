@@ -76,9 +76,9 @@ public final class Substrate implements ClientModInitializer {
 		//KEY = KeyBindingHelper.registerKeyBinding(KEY);
 
 		// Handle the key.
-		ClientTickEvents.END_CLIENT_TICK.register(client -> {
+		/*ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			// Key wasn't pressed.
-			//if (!KEY.wasPressed()) return;
+			if (!KEY.wasPressed()) return;
 
 			// Mod disabled by server.
 			if (serverDisabled.get()) {
@@ -101,7 +101,7 @@ public final class Substrate implements ClientModInitializer {
 							.formatted(enabled.get() ? Formatting.GREEN : Formatting.RED, Formatting.BOLD),
 					false
 			);
-		});
+		});*/
 
 		// Follow camera.
 		ClientTickEvents.END_WORLD_TICK.register(world -> cameraController.handleEndTick());
