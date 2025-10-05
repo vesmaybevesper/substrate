@@ -46,9 +46,9 @@ public final class Substrate implements ClientModInitializer {
 	/**
 	 * Substrate toggle key.
 	 */
-	private static KeyBinding KEY = new KeyBinding(
+	/*private static KeyBinding KEY = new KeyBinding(
 			"substrate.toggle", InputUtil.Type.KEYSYM, GLFW.GLFW_KEY_R, KeyBinding.Category.create(Identifier.of("substrate", "category"))
-	);
+	);*/
 
 	/**
 	 * Whether the mod is enabled.
@@ -73,12 +73,12 @@ public final class Substrate implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		// Register the key.
-		KEY = KeyBindingHelper.registerKeyBinding(KEY);
+		//KEY = KeyBindingHelper.registerKeyBinding(KEY);
 
 		// Handle the key.
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			// Key wasn't pressed.
-			if (!KEY.wasPressed()) return;
+			//if (!KEY.wasPressed()) return;
 
 			// Mod disabled by server.
 			if (serverDisabled.get()) {
