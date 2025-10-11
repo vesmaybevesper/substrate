@@ -1,5 +1,6 @@
 package vesper.substrate.mixin.client;
 
+import me.jellysquid.mods.sodium.client.render.chunk.compile.pipeline.BlockOcclusionCache;
 import vesper.substrate.Substrate;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -20,7 +21,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  * @author VidTu
  * @author VesMaybeVesper
  */
-@Mixin(value = net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockOcclusionCache.class, remap = false)
+@Mixin(value = BlockOcclusionCache.class, remap = false)
 @Environment(EnvType.CLIENT)
 public abstract class BlockOcclusionCacheMixin {
     /**
