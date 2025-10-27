@@ -9,8 +9,7 @@ import net.minecraft.util.math.Vec3d;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
-import static vesper.substrate.Substrate.ceilingY;
-import static vesper.substrate.Substrate.floorY;
+import static vesper.substrate.Substrate.*;
 
 public final class CameraController {
 
