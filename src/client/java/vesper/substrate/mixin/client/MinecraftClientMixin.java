@@ -39,25 +39,27 @@ public abstract class MinecraftClientMixin {
         // Skip world unloads.
         if (world == null) return;
 
-        // Get the dimension
-        DimensionType dimension = world.getDimension();
-        final Identifier dimID = dimension.effects();
+        MinecraftClient.getInstance().execute(() -> {
+            // Get the dimension
+            DimensionType dimension = world.getDimension();
+            final Identifier dimID = dimension.effects();
 
-        int newFloorY = Integer.MIN_VALUE;
-        int newCeilingY = Integer.MAX_VALUE;
+            int newFloorY = Integer.MIN_VALUE;
+            int newCeilingY = Integer.MAX_VALUE;
 
-        if (dimID.equals(DimensionTypes.OVERWORLD_ID)){
-            newFloorY = dimension.minY();
-            newCeilingY = Integer.MAX_VALUE;
-        } else if (dimID.equals(DimensionTypes.THE_NETHER_ID)) {
-            newFloorY = dimension.minY();
-            newCeilingY = dimension.logicalHeight() - 1;
-        }
+            if (dimID.equals(DimensionTypes.OVERWORLD_ID)){
+                newFloorY = dimension.minY();
+                newCeilingY = Integer.MAX_VALUE;
+            } else if (dimID.equals(DimensionTypes.THE_NETHER_ID)) {
+                newFloorY = dimension.minY();
+                newCeilingY = dimension.logicalHeight() - 1;
+            }
 
-        if (newFloorY != Substrate.floorY.get() || newCeilingY != Substrate.ceilingY.get()){
-            Substrate.floorY.set(newFloorY);
-            Substrate.ceilingY.set(newCeilingY);
-            Substrate.cameraController.updateVisibility();
-        }
+            if (newFloorY != Substrate.floorY.get() || newCeilingY != Substrate.ceilingY.get()){
+                Substrate.floorY.set(newFloorY);
+                Substrate.ceilingY.set(newCeilingY);
+                Substrate.cameraController.updateVisibility();
+            }
+        });
     }
 }

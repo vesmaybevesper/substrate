@@ -20,7 +20,7 @@ public class ClientLevelMixin {
         if (!Substrate.enabled.get() || Substrate.serverDisabled.get()) return;
 
         if (MinecraftClient.getInstance().worldRenderer != null){
-            int dist = 2;
+            int dist = (int) MinecraftClient.getInstance().worldRenderer.getViewDistance() + 1;
 
             for (int x = chunkPos.x - dist; x <= chunkPos.x + dist; x++){
                 for (int z = chunkPos.z - dist; z <= chunkPos.z + dist; z++){

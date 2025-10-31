@@ -66,7 +66,7 @@ public final class CameraController {
 
         // Get the distance.
         final WorldRenderer worldRenderer = client.worldRenderer;
-        final int dist = (int) (worldRenderer.getViewDistance() + 1);
+        final int dist = (int) (worldRenderer.getViewDistance() + 2);
 
         // Schedule re-render for every block section.
         for (int x = sx - dist; x <= sx + dist; x++) {
