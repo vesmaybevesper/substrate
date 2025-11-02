@@ -68,6 +68,8 @@ public final class Substrate implements ClientModInitializer {
 	 */
 	public static AtomicInteger ceilingY = new AtomicInteger(Integer.MAX_VALUE);
 
+    public static BlockPos lastPortalExitPos = null;
+
 	@Override
 	public void onInitializeClient() {
 		// Register the key.

@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.AtomicDouble;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.WorldRenderer;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkSectionPos;
 import net.minecraft.util.math.Vec3d;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -78,5 +79,35 @@ public final class CameraController {
     public void updateVisibility(){
         renderLayer(floorY.get());
         renderLayer(ceilingY.get());
+    }
+
+    public void updateVisibilityAround(BlockPos center) {
+        renderLayerAt(floorY.get(), center);
+        renderLayerAt(ceilingY.get(), center);
+    }
+
+    private void renderLayerAt(int y, BlockPos center) {
+        if (y == -1) return;
+
+
+        final MinecraftClient client = MinecraftClient.getInstance();
+        final ClientWorld world = client.world;
+        if (world == null) return;
+
+
+        final int sx = ChunkSectionPos.getSectionCoord(center.getX());
+        final int sy = ChunkSectionPos.getSectionCoord(y);
+        final int sz = ChunkSectionPos.getSectionCoord(center.getZ());
+
+
+        final WorldRenderer worldRenderer = client.worldRenderer;
+        final int dist = (int) (worldRenderer.getViewDistance() + 3);
+
+
+        for (int x = sx - dist; x <= sx + dist; x++) {
+            for (int z = sz - dist; z <= sz + dist; z++) {
+                worldRenderer.scheduleChunkRenders3x3x3(x, sy, z);
+            }
+        }
     }
 }

@@ -53,12 +53,25 @@ public abstract class MinecraftClientMixin {
             } else if (dimID.equals(DimensionTypes.THE_NETHER_ID)) {
                 newFloorY = dimension.minY();
                 newCeilingY = dimension.logicalHeight() - 1;
+
+                MinecraftClient client = MinecraftClient.getInstance();
+                if (client != null){
+                    assert client.player != null;
+                    Substrate.lastPortalExitPos = client.player.getBlockPos();
+                }
             }
 
             if (newFloorY != Substrate.floorY.get() || newCeilingY != Substrate.ceilingY.get()){
                 Substrate.floorY.set(newFloorY);
                 Substrate.ceilingY.set(newCeilingY);
-                Substrate.cameraController.updateVisibility();
+
+                if (Substrate.lastPortalExitPos != null){
+                    Substrate.cameraController.updateVisibilityAround(Substrate.lastPortalExitPos);
+                } else {
+                    Substrate.cameraController.updateVisibility();
+                }
+
+                Substrate.lastPortalExitPos = null;
             }
         });
     }
