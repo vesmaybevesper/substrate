@@ -20,17 +20,17 @@ public class ClientLevelMixin {
         if (!Substrate.enabled.get() || Substrate.serverDisabled.get()) return;
 
         if (MinecraftClient.getInstance().worldRenderer != null){
-            int dist = 2;
+            int dist = (int) MinecraftClient.getInstance().worldRenderer.getViewDistance() + 1;
 
             for (int x = chunkPos.x - dist; x <= chunkPos.x + dist; x++){
                 for (int z = chunkPos.z - dist; z <= chunkPos.z + dist; z++){
                     if (Substrate.floorY.get() != Integer.MIN_VALUE){
                         int sy = ChunkSectionPos.getSectionCoord(Substrate.floorY.get());
-                        MinecraftClient.getInstance().worldRenderer.scheduleBlockRenders(x, sy, z);
+                        MinecraftClient.getInstance().worldRenderer.scheduleBlockRender(x, sy, z);
                     }
                     if (Substrate.ceilingY.get() != Integer.MAX_VALUE){
                         int sy = ChunkSectionPos.getSectionCoord(Substrate.ceilingY.get());
-                        MinecraftClient.getInstance().worldRenderer.scheduleBlockRenders(x, sy, z);
+                        MinecraftClient.getInstance().worldRenderer.scheduleBlockRender(x, sy, z);
                     }
                 }
             }
