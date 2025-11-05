@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import vesper.substrate.SubstrateClient;
 
 @Mixin(ClientLevel.class)
 public class ClientLevelMixin {
@@ -17,7 +18,7 @@ public class ClientLevelMixin {
         if (!SubstrateClient.enabled.get() || SubstrateClient.serverDisabled.get()) return;
 
         if (Minecraft.getInstance().levelRenderer != null){
-            int dist = 2;
+            int dist = (int) Minecraft.getInstance().levelRenderer.getLastViewDistance() + 1;
 
             for (int x = chunkPos.x - dist; x <= chunkPos.x + dist; x++){
                 for (int z = chunkPos.z - dist; z <= chunkPos.z + dist; z++){
@@ -25,7 +26,7 @@ public class ClientLevelMixin {
                         int sy = SectionPos.blockToSectionCoord(SubstrateClient.floorY.get());
                         Minecraft.getInstance().levelRenderer.setSectionDirtyWithNeighbors(x, sy, z);
                     }
-                    if (Substrate.ceilingY.get() != Integer.MAX_VALUE){
+                    if (SubstrateClient.ceilingY.get() != Integer.MAX_VALUE){
                         int sy = SectionPos.blockToSectionCoord(SubstrateClient.ceilingY.get());
                         Minecraft.getInstance().levelRenderer.setSectionDirtyWithNeighbors(x, sy, z);
                     }

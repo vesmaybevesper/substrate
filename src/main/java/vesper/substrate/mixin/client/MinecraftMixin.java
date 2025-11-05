@@ -28,25 +28,35 @@ public abstract class MinecraftMixin {
     int newFloorY = Integer.MIN_VALUE;
     int newCeilingY = Integer.MAX_VALUE;
 
-
     DimensionType dim = level.dimensionType();
     final ResourceLocation dimID =  dim.effectsLocation();
     if (dimID.equals(BuiltinDimensionTypes.OVERWORLD_EFFECTS)){
         newFloorY = dim.minY() - 1;
+        newCeilingY = Integer.MAX_VALUE;
     } else if (dimID.equals(BuiltinDimensionTypes.NETHER_EFFECTS)){
-
         newFloorY = dim.minY() - 1;
         newCeilingY = dim.logicalHeight() - 2;
         if (ModList.get().isLoaded("incendium")){
             newCeilingY = 192;
         }
+        /*MinecraftClient client = MinecraftClient.getInstance();
+                if (client != null){
+                    assert client.player != null;
+                    // this is crashing on world load for some reason
+                    Substrate.lastPortalExitPos = client.player.getBlockPos();
+                }*/
     }
+    if (newFloorY != SubstrateClient.floorY.get() || newCeilingY != SubstrateClient.ceilingY.get()){
+        SubstrateClient.floorY.set(newFloorY);
+        SubstrateClient.ceilingY.set(newCeilingY);
 
-    if (newFloorY != floorY.get() || newCeilingY != ceilingY.get()) {
-        floorY.set(newFloorY);
-        ceilingY.set(newCeilingY);
-        SubstrateClient.cameraController.updateVisibility();
+        if (SubstrateClient.lastPortalExitPos != null){
+            SubstrateClient.cameraController.updateVisibilityAround(SubstrateClient.lastPortalExitPos);
+        } else {
+            SubstrateClient.cameraController.updateVisibility();
+        }
+
+        SubstrateClient.lastPortalExitPos = null;
     }
 }
-
 }

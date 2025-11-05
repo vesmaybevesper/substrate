@@ -27,6 +27,7 @@ public class SubstrateClient {
     public static final AtomicBoolean serverDisabled = new AtomicBoolean(false);
     public static AtomicInteger ceilingY = new AtomicInteger(Integer.MAX_VALUE);
     public static AtomicInteger floorY = new AtomicInteger(Integer.MIN_VALUE);
+    public static BlockPos lastPortalExitPos = null;
     public SubstrateClient(IEventBus bus) {
         // Allows NeoForge to create a config screen for this mod's configs.
         // The config screen is accessed by going to the Mods screen > clicking on your mod > clicking on config.

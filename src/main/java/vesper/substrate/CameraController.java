@@ -4,6 +4,7 @@ import com.google.common.util.concurrent.AtomicDouble;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
+import net.minecraft.core.BlockPos;
 import net.minecraft.core.SectionPos;
 import net.minecraft.world.phys.Vec3;
 
@@ -65,4 +66,32 @@ public void updateVisibility(){
 renderLayer(floorY.get());
 renderLayer(ceilingY.get());
 }
+    public void updateVisibilityAround(BlockPos center) {
+        renderLayerAt(floorY.get(), center);
+        renderLayerAt(ceilingY.get(), center);
+    }
+    private void renderLayerAt(int y, BlockPos center) {
+        if (y == -1) return;
+
+
+        final Minecraft client = Minecraft.getInstance();
+        final ClientLevel world = client.level;
+        if (world == null) return;
+
+
+        final int sx = SectionPos.blockToSectionCoord(center.getX());
+        final int sy = SectionPos.blockToSectionCoord(y);
+        final int sz = SectionPos.blockToSectionCoord(center.getZ());
+
+
+        final LevelRenderer worldRenderer = client.levelRenderer;
+        final int dist = (int) (worldRenderer.getLastViewDistance() + 3);
+
+
+        for (int x = sx - dist; x <= sx + dist; x++) {
+            for (int z = sz - dist; z <= sz + dist; z++) {
+                worldRenderer.setSectionDirty(x, sy, z);
+            }
+        }
+    }
 }
