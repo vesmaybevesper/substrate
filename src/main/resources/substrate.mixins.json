@@ -9,5 +9,7 @@
   "mixins": [
     "MinecraftClientMixin"
   ],
-  "client": []
+  "client": [
+    "ClientLevelMixin"
+  ]
 }
