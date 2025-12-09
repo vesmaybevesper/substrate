@@ -10,8 +10,6 @@ import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
-import net.neoforged.neoforge.client.ClientHooks;
-import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.event.tick.LevelTickEvent;
@@ -55,13 +53,6 @@ public class NeoforgeClientEventSubscriber {
 		cameraController.handleEndTick();
 	}
 
-	@SubscribeEvent
-	private static void registerReceiver(ClientPlayerNetworkEvent event){
-		try {
-
-		}
-	}
-
-
+	// Ignoring server disable for now because NeoForge network events make no sense to me
 }
 //?}
