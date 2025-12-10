@@ -1,5 +1,5 @@
 package dev.vesper.substrate.mixin;
-
+//? fabric || 1.21.1{
 import dev.vesper.substrate.Substrate;
 import net.caffeinemc.mods.sodium.client.render.chunk.compile.pipeline.BlockOcclusionCache;
 import net.minecraft.core.BlockPos;
@@ -27,3 +27,4 @@ public abstract class BlockOcclusionCacheMixin {
 		cir.setReturnValue(false);
 	}
 }
+//?}

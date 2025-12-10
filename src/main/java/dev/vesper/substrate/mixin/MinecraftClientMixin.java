@@ -4,12 +4,12 @@ import dev.vesper.substrate.Substrate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 //? 1.21.11{
-import net.minecraft.client.player.LocalPlayer;
+/*import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.Identifier;
-//?}
-//? 1.21.1 || 1.21.9{
-/*import net.minecraft.resources.ResourceLocation;
 *///?}
+//? 1.21.1 || 1.21.9{
+import net.minecraft.resources.ResourceLocation;
+//?}
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.dimension.DimensionType;
@@ -24,6 +24,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import java.awt.*;
 
+import static dev.vesper.substrate.Substrate.LOGGER;
 import static dev.vesper.substrate.Substrate.ceilingY;
 import static dev.vesper.substrate.Substrate.floorY;
 
@@ -35,7 +36,7 @@ public abstract class MinecraftClientMixin {
 		throw new AssertionError("No instances.");
 	}
 //? 1.21.1 || 1.21.9 {
-	/*@Inject(method = "updateLevelInEngines", at = @At("RETURN"))
+	@Inject(method = "updateLevelInEngines", at = @At("RETURN"))
 	private void afterLoadLevel(ClientLevel clientLevel, CallbackInfo ci) {
 		if (clientLevel == null) return;
 
@@ -56,11 +57,11 @@ public abstract class MinecraftClientMixin {
 				newCeiling = dimension.logicalHeight() - 1;
 				//?}
 				//? neoforge{
-				/^newCeiling = dimension.logicalHeight() - 2;
+				/*newCeiling = dimension.logicalHeight() - 2;
 				if (ModList.get().isLoaded("incendium")){
 					newCeiling = 192;
 				}
-				^///?}
+				*///?}
 			}
 
 			if (newFloor != Substrate.floorY.get() || newCeiling != Substrate.ceilingY.get()){
@@ -77,17 +78,15 @@ public abstract class MinecraftClientMixin {
 			}
 		});
 	}
-	*///?}
+	//?}
 
 	//? 1.21.11 {
-	@Inject(method = "updateLevelInEngines(Lnet/minecraft/client/multiplayer/ClientLevel;Z)V", at = @At("RETURN"))
+	/*@Inject(method = "updateLevelInEngines(Lnet/minecraft/client/multiplayer/ClientLevel;Z)V", at = @At("RETURN"))
 	private void afterLoadLevel(ClientLevel clientLevel, boolean bl, CallbackInfo ci) {
 		if (clientLevel == null) return;
 
 		Minecraft.getInstance().execute(() ->{
 			DimensionType dimension = clientLevel.dimensionType();
-			//final Identifier dimID = dimension.effectsLocation();
-			// im not 100% sure what this is returning in its identifier the hope is something that matches BuiltinDimensionTypes.NETHER.identifier() to pass the check lmao
 			final Identifier dimID = clientLevel.dimension().identifier();
 
 			int newFloor = Integer.MIN_VALUE;
@@ -104,11 +103,11 @@ public abstract class MinecraftClientMixin {
 				newCeiling = dimension.logicalHeight() - 1;
 				//?}
 				//? neoforge{
-				/*newCeiling = dimension.logicalHeight() - 2;
+				/^newCeiling = dimension.logicalHeight() - 2;
 				if (ModList.get().isLoaded("incendium")){
 					newCeiling = 192;
 				}
-				*///?}
+				^///?}
 			}
 
 			if (newFloor != floorY.get() || newCeiling != ceilingY.get()){
@@ -125,5 +124,5 @@ public abstract class MinecraftClientMixin {
 			}
 		});
 	}
-	//?}
+	*///?}
 }

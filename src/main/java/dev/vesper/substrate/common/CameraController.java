@@ -20,7 +20,7 @@ public class CameraController {
 	public static AtomicBoolean belowFloor = new AtomicBoolean(false);
 	public static AtomicBoolean aboveCeiling = new AtomicBoolean(false);
 //? 1.21.1 || 1.21.9{
-	/*public void handleEndTick(){
+	public void handleEndTick(){
 		if (!Substrate.enabled.get() || Substrate.serverDisabled.get()) return;
 
 		final AtomicDouble cameraY = new AtomicDouble(Minecraft.getInstance().gameRenderer.getMainCamera().getPosition().y);
@@ -63,10 +63,10 @@ public class CameraController {
 			}
 		}
 	}
-	*///?}
+	//?}
 
 	//? 1.21.11{
-	public void handleEndTick(){
+	/*public void handleEndTick(){
 		if (!Substrate.enabled.get() || Substrate.serverDisabled.get()) return;
 
 		final AtomicDouble cameraY = new AtomicDouble(Minecraft.getInstance().gameRenderer.getMainCamera().position().y);
@@ -109,7 +109,7 @@ public class CameraController {
 			}
 		}
 	}
-	//?}
+	*///?}
 
 	public void updateVisibility(){
 		renderLayer(floorY.get());
