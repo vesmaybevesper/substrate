@@ -8,7 +8,6 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.util.perf.Profiler;
 
 import static dev.vesper.substrate.Substrate.ceilingY;
 import static dev.vesper.substrate.Substrate.enabled;
@@ -16,7 +15,7 @@ import static dev.vesper.substrate.Substrate.floorY;
 import static dev.vesper.substrate.Substrate.serverDisabled;
 
 @Mixin(ClientLevel.class)
-public class ClientLevelMixin {
+public abstract class ClientLevelMixin {
 	@Inject(method = "onChunkLoaded", at = @At("RETURN"))
 	private void onChunkLoad(ChunkPos chunkPos, CallbackInfo ci){
 		if (!enabled.get() || serverDisabled.get()) return;
