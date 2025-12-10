@@ -10,7 +10,6 @@ import net.minecraft.resources.Identifier;
 //? 1.21.1 || 1.21.9{
 import net.minecraft.resources.ResourceLocation;
 //?}
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.dimension.DimensionType;
 import org.jetbrains.annotations.Contract;
@@ -23,8 +22,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 *///?}
 
 import java.awt.*;
-
-import static dev.vesper.substrate.Substrate.LOGGER;
 import static dev.vesper.substrate.Substrate.ceilingY;
 import static dev.vesper.substrate.Substrate.floorY;
 
@@ -64,10 +61,10 @@ public abstract class MinecraftClientMixin {
 				*///?}
 			}
 
-			if (newFloor != Substrate.floorY.get() || newCeiling != Substrate.ceilingY.get()){
-				Substrate.floorY.set(newFloor);
-				Substrate.ceilingY.set(newCeiling);
-
+			if (newFloor != Substrate.floorY.get() || newCeiling != ceilingY.get()){
+				floorY.set(newFloor);
+				ceilingY.set(newCeiling);
+				// Always Null, part of an experimental fix for #10
 				if (Substrate.lastPortalExitPos != null){
 					Substrate.cameraController.updateVisibilityAt(Substrate.lastPortalExitPos);
 				} else {
