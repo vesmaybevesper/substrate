@@ -37,7 +37,7 @@ public abstract class MinecraftClientMixin {
 	}
 //? 1.21.1 || 1.21.9 {
 	@Inject(method = "updateLevelInEngines", at = @At("RETURN"))
-	private void afterLoadLevel(ClientLevel clientLevel, CallbackInfo ci) {
+	private void substrate$afterLoadLevel$return(ClientLevel clientLevel, CallbackInfo ci) {
 		if (clientLevel == null) return;
 
 		Minecraft.getInstance().execute(() ->{
@@ -82,7 +82,7 @@ public abstract class MinecraftClientMixin {
 
 	//? 1.21.11 {
 	/*@Inject(method = "updateLevelInEngines(Lnet/minecraft/client/multiplayer/ClientLevel;Z)V", at = @At("RETURN"))
-	private void afterLoadLevel(ClientLevel clientLevel, boolean bl, CallbackInfo ci) {
+	private void substrate$afterLoadLevel$return(ClientLevel clientLevel, boolean bl, CallbackInfo ci) {
 		if (clientLevel == null) return;
 
 		Minecraft.getInstance().execute(() ->{

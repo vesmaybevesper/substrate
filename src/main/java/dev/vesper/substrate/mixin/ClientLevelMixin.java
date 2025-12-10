@@ -17,7 +17,7 @@ import static dev.vesper.substrate.Substrate.serverDisabled;
 @Mixin(ClientLevel.class)
 public abstract class ClientLevelMixin {
 	@Inject(method = "onChunkLoaded", at = @At("RETURN"))
-	private void onChunkLoad(ChunkPos chunkPos, CallbackInfo ci){
+	private void substrate$onChunkLoad$return(ChunkPos chunkPos, CallbackInfo ci){
 		if (!enabled.get() || serverDisabled.get()) return;
 
 		if (Minecraft.getInstance().levelRenderer != null){
