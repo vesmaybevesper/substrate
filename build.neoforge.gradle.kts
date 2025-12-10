@@ -47,6 +47,11 @@ neoForge {
 	sourceSets["main"].resources.srcDir("${rootDir}/versions/datagen/${stonecutter.current.version.split("-")[0]}/src/main/generated")
 }
 
+repositories{
+	maven("https://maven.caffeinemc.net/")
+	maven("https://api.modrinth.com/maven")
+}
+
 dependencies {
 	implementation("maven.modrinth:sodium:${prop("deps.sodium")}")
 }
