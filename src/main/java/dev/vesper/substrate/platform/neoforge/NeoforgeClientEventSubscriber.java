@@ -1,7 +1,7 @@
 package dev.vesper.substrate.platform.neoforge;
 
 //? neoforge {
-/*
+
 import dev.vesper.substrate.Substrate;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -55,4 +55,4 @@ public class NeoforgeClientEventSubscriber {
 
 	// Ignoring server disable for now because NeoForge network events make no sense to me
 }
-*///?}
+//?}

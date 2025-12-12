@@ -48,12 +48,12 @@ neoForge {
 }
 
 repositories{
-	maven("https://maven.caffeinemc.net/")
+	maven("https://maven.caffeinemc.net/releases")
 	maven("https://api.modrinth.com/maven")
 }
 
 dependencies {
-	implementation("maven.modrinth:sodium:${prop("deps.sodium")}")
+	implementation("net.caffeinemc:sodium-neoforge-mod:${prop("deps.sodium")}")
 }
 
 tasks.named("createMinecraftArtifacts") {

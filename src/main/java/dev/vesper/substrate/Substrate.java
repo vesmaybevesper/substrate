@@ -9,21 +9,22 @@ import net.minecraft.client.KeyMapping;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 //? 1.21.11{
-/*import net.minecraft.resources.Identifier;
-*///?}
-//? 1.21.1 || 1.21.9 {
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 //?}
+//? 1.21.1 || 1.21.9 {
+/*import net.minecraft.resources.Identifier;
+import net.minecraft.resources.ResourceLocation;
+*///?}
 import org.jetbrains.annotations.NotNull;
 import org.lwjgl.glfw.GLFW;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 //? fabric {
-import dev.vesper.substrate.platform.fabric.FabricPlatform;
-//?} neoforge {
-/*import dev.vesper.substrate.platform.neoforge.NeoforgePlatform;
- *///?}
+/*import dev.vesper.substrate.platform.fabric.FabricPlatform;
+*///?} neoforge {
+import dev.vesper.substrate.platform.neoforge.NeoforgePlatform;
+ //?}
 import static dev.vesper.substrate.common.CameraController.aboveCeiling;
 import static dev.vesper.substrate.common.CameraController.belowFloor;
 
@@ -37,19 +38,13 @@ public class Substrate {
 
 	private static final Platform PLATFORM = createPlatformInstance();
 
-	//? 1.21.1 || 1.21.9 {
-	public static final ResourceLocation CHANNEL = ResourceLocation.fromNamespaceAndPath("substrate", "v1");
-	//?}
-	//? 1.21.11{
-	/*public static final Identifier CHANNEL = Identifier.fromNamespaceAndPath("substrate", "v1");
-	*///?}
+
+	public static final Identifier CHANNEL = Identifier.fromNamespaceAndPath("substrate", "v1");
+
 	public static final CameraController cameraController = new CameraController();
-	//? 1.21.1{
-	public static KeyMapping KEY = new KeyMapping("substrate.toggle", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_R, "subtrate.category");
-	//?}
-	//? 1.21.9 || 1.21.11{
-	/*public static KeyMapping KEY = new KeyMapping("substrate.toggle", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_R, KeyMapping.Category.MISC);
-	*///?}
+
+	public static KeyMapping KEY = new KeyMapping("substrate.toggle", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_R, KeyMapping.Category.MISC);
+
 	public static final AtomicBoolean enabled = new AtomicBoolean(true);
 	public static final AtomicBoolean serverDisabled = new AtomicBoolean(false);
 	public static AtomicInteger floorY = new AtomicInteger(Integer.MIN_VALUE);
@@ -70,11 +65,7 @@ public class Substrate {
 	}
 
 	private static Platform createPlatformInstance() {
-		//? fabric {
-		return new FabricPlatform();
-		//?} neoforge {
-		/*return new NeoforgePlatform();
-		 *///?}
+		return new NeoforgePlatform();
 	}
 
 	public static boolean shouldRender(@NotNull BlockPos pos, @NotNull Direction facing) {

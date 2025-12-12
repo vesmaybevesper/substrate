@@ -1,7 +1,7 @@
 package dev.vesper.substrate.platform.neoforge;
 
 //? neoforge {
-/*
+
 import dev.vesper.substrate.Substrate;
 import net.neoforged.fml.common.Mod;
 
@@ -12,4 +12,4 @@ public class NeoforgeEntrypoint {
 		Substrate.onInitialize();
 	}
 }
-*///?}
+//?}
