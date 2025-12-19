@@ -50,7 +50,7 @@ public class NeoforgeClientEventSubscriber {
 
 	@SubscribeEvent
 	static void onEndTick(LevelTickEvent.Post event){
-		if (event.getLevel().isClientSide) {
+		if (event.getLevel().isClientSide()) {
 			cameraController.handleEndTick();
 		}
 	}
