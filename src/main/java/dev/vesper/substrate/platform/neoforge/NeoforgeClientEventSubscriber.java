@@ -50,7 +50,9 @@ public class NeoforgeClientEventSubscriber {
 
 	@SubscribeEvent
 	static void onEndTick(LevelTickEvent.Post event){
-		cameraController.handleEndTick();
+		if (event.getLevel().isClientSide()) {
+			cameraController.handleEndTick();
+		}
 	}
 
 	// Ignoring server disable for now because NeoForge network events make no sense to me
