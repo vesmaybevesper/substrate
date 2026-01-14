@@ -8,12 +8,14 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.resources.Identifier;
 *///?}
 //? 1.21.1 || 1.21.9{
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.resources.ResourceLocation;
 //?}
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.dimension.DimensionType;
 import org.jetbrains.annotations.Contract;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -32,6 +34,22 @@ public abstract class MinecraftClientMixin {
 	private MinecraftClientMixin(){
 		throw new AssertionError("No instances.");
 	}
+
+	@Inject(method = "updateLevelInEngines", at = @At("HEAD"))
+	private void substrate$updateLevelInEngines$head(ClientLevel clientLevel, CallbackInfo ci){
+		// Reset values as soon as levels change to avoid an issue with chunks that should render not doing so
+		if (clientLevel == null) return;
+
+		int oldFloor = floorY.get();
+		int oldCeiling = ceilingY.get();
+
+		if (oldFloor != Integer.MIN_VALUE || oldCeiling != Integer.MAX_VALUE) {
+			floorY.set(Integer.MIN_VALUE);
+			ceilingY.set(Integer.MAX_VALUE);
+			Substrate.cameraController.updateVisibility();
+		}
+	}
+
 //? 1.21.1 || 1.21.9 {
 	@Inject(method = "updateLevelInEngines", at = @At("RETURN"))
 	private void substrate$afterLoadLevel$return(ClientLevel clientLevel, CallbackInfo ci) {
@@ -64,14 +82,14 @@ public abstract class MinecraftClientMixin {
 			if (newFloor != Substrate.floorY.get() || newCeiling != ceilingY.get()){
 				floorY.set(newFloor);
 				ceilingY.set(newCeiling);
-				// Always Null, part of an experimental fix for #10
-				if (Substrate.lastPortalExitPos != null){
-					Substrate.cameraController.updateVisibilityAt(Substrate.lastPortalExitPos);
+
+
+				LocalPlayer player = Minecraft.getInstance().player;
+				if (player != null){
+					Substrate.cameraController.updateVisibilityAt(player.blockPosition());
 				} else {
 					Substrate.cameraController.updateVisibility();
 				}
-
-				Substrate.lastPortalExitPos = null;
 			}
 		});
 	}
@@ -111,13 +129,12 @@ public abstract class MinecraftClientMixin {
 				floorY.set(newFloor);
 				ceilingY.set(newCeiling);
 
-				if (Substrate.lastPortalExitPos != null){
-					Substrate.cameraController.updateVisibilityAt(Substrate.lastPortalExitPos);
+				LocalPlayer player = Minecraft.getInstance().player;
+				if (player != null){
+					Substrate.cameraController.updateVisibilityAt(player.blockPosition());
 				} else {
 					Substrate.cameraController.updateVisibility();
 				}
-
-				Substrate.lastPortalExitPos = null;
 			}
 		});
 	}

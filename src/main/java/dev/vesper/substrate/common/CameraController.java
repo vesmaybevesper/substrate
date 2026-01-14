@@ -126,7 +126,6 @@ public class CameraController {
 	private void renderLayerAt(int y, BlockPos center) {
 		if (y == -1) return;
 
-
 		final Minecraft client = Minecraft.getInstance();
 		final ClientLevel world = client.level;
 		if (world == null) return;

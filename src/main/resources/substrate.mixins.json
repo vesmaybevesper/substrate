@@ -10,7 +10,7 @@
   ],
   "client": [
     "BlockOcclusionCacheMixin",
-    "MinecraftClientMixin",
-    "ClientLevelMixin"
+    "ClientLevelMixin",
+    "MinecraftClientMixin"
   ]
 }
