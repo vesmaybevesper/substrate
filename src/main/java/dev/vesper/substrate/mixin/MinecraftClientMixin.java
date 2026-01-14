@@ -32,6 +32,22 @@ public abstract class MinecraftClientMixin {
 	private MinecraftClientMixin(){
 		throw new AssertionError("No instances.");
 	}
+
+	@Inject(method = "updateLevelInEngines", at = @At("HEAD"))
+	private void substrate$updateLevelInEngines$head(ClientLevel clientLevel, CallbackInfo ci){
+		// Reset values as soon as levels change to avoid an issue with chunks that should render not doing so
+		if (clientLevel == null) return;
+
+		int oldFloor = floorY.get();
+		int oldCeiling = ceilingY.get();
+
+		if (oldFloor != Integer.MIN_VALUE || oldCeiling != Integer.MAX_VALUE) {
+			floorY.set(Integer.MIN_VALUE);
+			ceilingY.set(Integer.MAX_VALUE);
+			Substrate.cameraController.updateVisibility();
+		}
+	}
+
 	@Inject(method = "updateLevelInEngines(Lnet/minecraft/client/multiplayer/ClientLevel;Z)V", at = @At("RETURN"))
 	private void substrate$afterLoadLevel$return(ClientLevel clientLevel, boolean bl, CallbackInfo ci) {
 		if (clientLevel == null) return;

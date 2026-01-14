@@ -32,7 +32,7 @@ import static dev.vesper.substrate.common.CameraController.belowFloor;
 public class Substrate {
 
 	public static final String MOD_ID = /*$ mod_id*/ "substrate";
-	public static final String MOD_VERSION = /*$ mod_version*/ "4.1-Beta.3";
+	public static final String MOD_VERSION = /*$ mod_version*/ "4.1";
 	public static final String MOD_FRIENDLY_NAME = /*$ mod_name*/ "Substrate";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
@@ -69,6 +69,8 @@ public class Substrate {
 	}
 
 	public static boolean shouldRender(@NotNull BlockPos pos, @NotNull Direction facing) {
+		if (floorY.get() == Integer.MIN_VALUE && ceilingY.get() == Integer.MAX_VALUE) return true;
+
 		// Render if not enabled.
 		if (!Substrate.enabled.get() || Substrate.serverDisabled.get()) return true;
 
