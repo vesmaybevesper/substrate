@@ -170,9 +170,9 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 		extensions.configure<JavaPluginExtension>("java") {
 			withSourcesJar()
 			val javaVersion = if (stonecutter.eval(
-					stonecutter.current.version, ">=1.21"
+					stonecutter.current.version, ">=26.1"
 				)
-			) JavaVersion.VERSION_21 else JavaVersion.VERSION_17
+			) JavaVersion.VERSION_25 else JavaVersion.VERSION_21
 			sourceCompatibility = javaVersion
 			targetCompatibility = javaVersion
 		}
