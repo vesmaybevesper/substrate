@@ -18,4 +18,22 @@ description = '''${description}'''
 
 [[mixins]]
 config = "${id}.mixins.json"
-${dependencies}
+
+[[dependancies.substrate]]
+modId = "minecraft"
+type= "required"
+ordering="NONE"
+side="CLIENT"
+
+[[dependancies.substrate]]
+modId = "neoforge"
+type = "required"
+ordering = "NONE"
+side = "CLIENT"
+
+[[dependancies.substrate]]
+modId= "sodium"
+type = "required"
+versionRange= "[6.13,)"
+ordering = "NONE"
+side = "CLIENT"
