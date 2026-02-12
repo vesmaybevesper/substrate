@@ -35,7 +35,9 @@ public abstract class MinecraftClientMixin {
 
 	@Inject(method = "updateLevelInEngines", at = @At("HEAD"))
 	private void substrate$updateLevelInEngines$head(ClientLevel clientLevel, CallbackInfo ci){
-		// Reset values as soon as levels change to avoid an issue with chunks that should render not doing so
+		/*
+		 * Reset values as soon as levels change to avoid an issue with chunks that should render not doing so, part of a fix for chunks around the Nether portal not rendering when loading in above the nether roof, other half is substrate$onChunkLoad$return
+		 */
 		if (clientLevel == null) return;
 
 		int oldFloor = floorY.get();
@@ -44,7 +46,7 @@ public abstract class MinecraftClientMixin {
 		if (oldFloor != Integer.MIN_VALUE || oldCeiling != Integer.MAX_VALUE) {
 			floorY.set(Integer.MIN_VALUE);
 			ceilingY.set(Integer.MAX_VALUE);
-			Substrate.cameraController.updateVisibility();
+			Minecraft.getInstance().execute(Substrate.cameraController::updateVisibility);
 		}
 	}
 
