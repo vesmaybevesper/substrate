@@ -46,7 +46,7 @@ public abstract class MinecraftClientMixin {
 		if (oldFloor != Integer.MIN_VALUE || oldCeiling != Integer.MAX_VALUE) {
 			floorY.set(Integer.MIN_VALUE);
 			ceilingY.set(Integer.MAX_VALUE);
-			Substrate.cameraController.updateVisibility();
+			Minecraft.getInstance().execute(Substrate.cameraController::updateVisibility);
 		}
 	}
 
