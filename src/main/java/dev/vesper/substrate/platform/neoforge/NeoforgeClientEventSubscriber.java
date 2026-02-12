@@ -1,8 +1,8 @@
 package dev.vesper.substrate.platform.neoforge;
 
 //? neoforge {
-/*
-import dev.vesper.substrate.Substrate;
+
+/*import dev.vesper.substrate.Substrate;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;

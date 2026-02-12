@@ -29,8 +29,6 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 
 		val extension = extensions.create("platform", ModPlatformExtensionImpl::class.java).apply {
 			loader.convention(inferredLoader)
-			jarTask.convention(if (inferredLoaderIsFabric) "remapJar" else "jar")
-			sourcesJarTask.convention(if (inferredLoaderIsFabric) "remapSourcesJar" else "sourcesJar")
 		}
 
 		afterEvaluate {
@@ -54,7 +52,7 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 
 		version = "$modVersion$channelTag+$mcVersion-$loader"
 
-		configureJarTask(modId)
+
 		configureIdea()
 		configureProcessResources(isFabric, isNeoForge, modId, "$modVersion$channelTag", mcVersion, extension)
 		configureJava(stonecutter)
@@ -62,11 +60,6 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 		configurePublishing(extension, loader, stonecutter, "$modVersion$channelTag", channelTag, version.toString())
 	}
 
-	private fun Project.configureJarTask(modId: String) {
-		tasks.withType<Jar>().configureEach {
-			archiveBaseName.set(modId)
-		}
-	}
 
 	private fun Project.configureProcessResources(
 		isFabric: Boolean,
@@ -219,13 +212,9 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 				dryRun = true
 			}
 
-			val jarTask = tasks.named(ext.jarTask.get()).map { it as Jar }
-			val srcJarTask = tasks.named(ext.sourcesJarTask.get()).map { it as Jar }
 			val currentVersion = stonecutter.current.version
 			val deps = ext.dependencies
 
-			file.set(jarTask.flatMap(Jar::getArchiveFile))
-			additionalFiles.from(srcJarTask.flatMap(Jar::getArchiveFile))
 			type = releaseType
 			version = fullVersion
 			changelog.set(rootProject.file("CHANGELOG.md").readText())

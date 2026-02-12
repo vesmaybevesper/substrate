@@ -57,7 +57,7 @@ repositories{
 }
 
 dependencies {
-	implementation("maven.modrinth:sodium:${prop("deps.sodium")}")
+	//implementation("net.caffeinemc:sodium-neoforge-mod:${prop("deps.sodium")}")
 }
 
 tasks.named("createMinecraftArtifacts") {

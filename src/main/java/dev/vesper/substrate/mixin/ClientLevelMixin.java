@@ -24,8 +24,8 @@ public abstract class ClientLevelMixin {
 		if (Minecraft.getInstance().levelRenderer != null){
 			int dist = 2;
 
-			for (int x = chunkPos.x - dist; x <= chunkPos.x + dist; x++){
-				for (int z = chunkPos.z - dist; z <= chunkPos.z + dist; z++){
+			for (int x = chunkPos.x() - dist; x <= chunkPos.x() + dist; x++){
+				for (int z = chunkPos.z() - dist; z <= chunkPos.z() + dist; z++){
 					if (floorY.get() != Integer.MIN_VALUE){
 						int sy = SectionPos.blockToSectionCoord(floorY.get());
 						Minecraft.getInstance().levelRenderer.setSectionDirtyWithNeighbors(x, sy, z);

@@ -5,7 +5,6 @@ package dev.vesper.substrate.platform.fabric;
 import dev.vesper.substrate.Substrate;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientLoginNetworking;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.minecraft.ChatFormatting;
@@ -42,7 +41,7 @@ public class FabricClientEntrypoint implements ClientModInitializer {
 			client.gui.setOverlayMessage(Component.translatable(enabled.get() ? "substrate.toggle.on" : "substrate.toggle.off").withStyle(enabled.get() ? ChatFormatting.GREEN : ChatFormatting.RED, ChatFormatting.BOLD), false);
 		});
 
-		ClientTickEvents.END_WORLD_TICK.register(world -> cameraController.handleEndTick());
+		ClientTickEvents.END_LEVEL_TICK.register(world -> cameraController.handleEndTick());
 
 		ClientLoginNetworking.registerGlobalReceiver(CHANNEL, ((client, handler, buf, callbacksConsumer) -> {
 			try {

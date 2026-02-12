@@ -1,6 +1,6 @@
 plugins {
 	id("mod-platform")
-	id("fabric-loom")
+	id("net.fabricmc.fabric-loom")
 }
 
 platform {
@@ -55,8 +55,7 @@ repositories{
 
 dependencies {
 	minecraft("com.mojang:minecraft:${prop("deps.minecraft")}")
-	mappings(loom.officialMojangMappings())
-	modImplementation(libs.fabric.loader)
-	modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabric-api")}")
-	modImplementation("maven.modrinth:sodium:${prop("deps.sodium")}")
+	implementation(libs.fabric.loader)
+	implementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabric-api")}")
+	//implementation("net.caffeinemc:sodium-neoforge-mod:${prop("deps.sodium")}")
 }
