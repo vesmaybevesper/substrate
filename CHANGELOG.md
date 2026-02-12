@@ -1,0 +1,4 @@
+- Update for 26.1
+- Change versioning system: (major.minor.revision.build)
+  - This was pretty arbitrary before but there is now a slight logic to it
+  - Example: 4.0 would have been 1.5.5.0, while 4.0hf (Fabric 1.20.1) would have been 1.5.5.1
