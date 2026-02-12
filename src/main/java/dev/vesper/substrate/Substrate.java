@@ -32,7 +32,7 @@ import static dev.vesper.substrate.common.CameraController.belowFloor;
 public class Substrate {
 
 	public static final String MOD_ID = /*$ mod_id*/ "substrate";
-	public static final String MOD_VERSION = /*$ mod_version*/ "4.1";
+	public static final String MOD_VERSION = /*$ mod_version*/ "4.2";
 	public static final String MOD_FRIENDLY_NAME = /*$ mod_name*/ "Substrate";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
