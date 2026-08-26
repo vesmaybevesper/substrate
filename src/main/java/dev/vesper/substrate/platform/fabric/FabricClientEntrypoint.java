@@ -5,7 +5,7 @@ package dev.vesper.substrate.platform.fabric;
 import dev.vesper.substrate.Substrate;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
-import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
+import net.fabricmc.fabric.api.client.keymapping.v1.KeyMappingHelper;
 import net.fabricmc.fabric.api.client.networking.v1.ClientLoginNetworking;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayConnectionEvents;
 import net.minecraft.ChatFormatting;
@@ -23,13 +23,14 @@ public class FabricClientEntrypoint implements ClientModInitializer {
 	public void onInitializeClient() {
 		Substrate.onInitializeClient();
 
-		KEY = KeyBindingHelper.registerKeyBinding(KEY);
+		KEY = KeyMappingHelper.registerKeyMapping(KEY);
 
 		ClientTickEvents.END_CLIENT_TICK.register(client -> {
 			if (!KEY.isDown()) return;
 
 			if (serverDisabled.get()){
-				client.gui.setOverlayMessage(Component.translatable("substrate.toggle.server").withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD), false);
+				//~ if >=26.2 'gui' -> 'gui.hud'
+				client.gui.hud.setOverlayMessage(Component.translatable("substrate.toggle.server").withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD), false);
 				return;
 			}
 
@@ -37,12 +38,14 @@ public class FabricClientEntrypoint implements ClientModInitializer {
 			enabled.set(newState);
 			cameraController.updateVisibility();
 
-			client.levelRenderer.allChanged();
+			//~ if >=26.2 'allChanged()' -> 'invalidateCompiledGeometry(client.level, client.options, client.gameRenderer.mainCamera(), client.getBlockColors())'
+			client.levelRenderer.invalidateCompiledGeometry(client.level, client.options, client.gameRenderer.mainCamera(), client.getBlockColors());
 
-			client.gui.setOverlayMessage(Component.translatable(enabled.get() ? "substrate.toggle.on" : "substrate.toggle.off").withStyle(enabled.get() ? ChatFormatting.GREEN : ChatFormatting.RED, ChatFormatting.BOLD), false);
+			//~ if >=26.2 'gui' -> 'gui.hud'
+			client.gui.hud.setOverlayMessage(Component.translatable(enabled.get() ? "substrate.toggle.on" : "substrate.toggle.off").withStyle(enabled.get() ? ChatFormatting.GREEN : ChatFormatting.RED, ChatFormatting.BOLD), false);
 		});
 
-		ClientTickEvents.END_WORLD_TICK.register(world -> cameraController.handleEndTick());
+		ClientTickEvents.END_LEVEL_TICK.register(world -> cameraController.handleEndTick());
 
 		ClientLoginNetworking.registerGlobalReceiver(CHANNEL, ((client, handler, buf, callbacksConsumer) -> {
 			try {
@@ -54,7 +57,8 @@ public class FabricClientEntrypoint implements ClientModInitializer {
 			client.execute(() -> {
 				if (client.level == null) return;
 
-				client.levelRenderer.allChanged();
+				//~ if >=26.2 'allChanged()' -> 'invalidateCompiledGeometry(client.level, client.options, client.gameRenderer.mainCamera(), client.getBlockColors())'
+				client.levelRenderer.invalidateCompiledGeometry(client.level, client.options, client.gameRenderer.mainCamera(), client.getBlockColors());
 
 				final String msg = serverDisabled.get() ? "substrate.toggle.server" : (enabled.get() ? "substrate.toggle.on" : "substrate.toggle.off");
 
@@ -62,7 +66,8 @@ public class FabricClientEntrypoint implements ClientModInitializer {
 						ChatFormatting.DARK_RED :
 						(enabled.get() ? ChatFormatting.GREEN : ChatFormatting.RED);
 
-				client.gui.setOverlayMessage(Component.translatable(msg).withStyle(formatting, ChatFormatting.BOLD), false);
+				//~ if >=26.2 'gui' -> 'gui.hud'
+				client.gui.hud.setOverlayMessage(Component.translatable(msg).withStyle(formatting, ChatFormatting.BOLD), false);
 			});
 			return null;
 		}));

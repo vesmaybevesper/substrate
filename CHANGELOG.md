@@ -1,0 +1,2 @@
+- Update for Minecraft 26.1.2 & 26.2
+- Update to Sodium 0.9.x

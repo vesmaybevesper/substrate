@@ -29,8 +29,8 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 
 		val extension = extensions.create("platform", ModPlatformExtensionImpl::class.java).apply {
 			loader.convention(inferredLoader)
-			jarTask.convention(if (inferredLoaderIsFabric) "remapJar" else "jar")
-			sourcesJarTask.convention(if (inferredLoaderIsFabric) "remapSourcesJar" else "sourcesJar")
+			jarTask.convention(if (inferredLoaderIsFabric) "jar" else "jar")
+			sourcesJarTask.convention(if (inferredLoaderIsFabric) "sourcesJar" else "sourcesJar")
 		}
 
 		afterEvaluate {
@@ -252,6 +252,7 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 		if (staging) apiEndpoint = "https://staging-api.modrinth.com/v2"
 		projectId = project.prop("publish.modrinth")
 		accessToken = acesssToken
+		environment = CLIENT_ONLY
 		minecraftVersions.addAll(listOf(currentVersion) + additionalVersions)
 
 		if (!staging) {
@@ -271,6 +272,7 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 	) = curseforge {
 		projectId = project.prop("publish.curseforge")
 		accessToken = acesssToken
+		client = true
 		minecraftVersions.addAll(listOf(currentVersion) + additionalVersions)
 
 		deps.required.forEach { dep -> whenNotNull(dep.curseforge) { requires(it) } }

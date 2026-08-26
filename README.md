@@ -1,1 +1,1 @@
-Sodium has updated and removed the point that this mod hooked into. Given that my interest in maintaining this mod was already low and I was planning on archiving it when Minecraft switched to Vulkan anyway, I've decided to stop work on it now. Thanks for all the support!
+We're getting the band back together!

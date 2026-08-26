@@ -1,8 +1,8 @@
 package dev.vesper.substrate.platform.neoforge;
 
 //? neoforge {
-/*
-import dev.vesper.substrate.Substrate;
+
+/*import dev.vesper.substrate.Substrate;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.chat.Component;
@@ -37,15 +37,18 @@ public class NeoforgeClientEventSubscriber {
 		Minecraft client = Minecraft.getInstance();
 
 		if (serverDisabled.get()){
-			client.gui.setOverlayMessage(Component.translatable("substrate.toggle.server").withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD), false);
+			//~ if >=26.2 'gui' -> 'gui.hud'
+			client.gui.hud.setOverlayMessage(Component.translatable("substrate.toggle.server").withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD), false);
 		}
 
 		boolean newState = !enabled.get();
 		enabled.set(newState);
 		cameraController.updateVisibility();
 
-		client.levelRenderer.allChanged();
-		client.gui.setOverlayMessage(Component.translatable(enabled.get() ? "substrate.toggle.on" : "substrate.toggle.off").withStyle(enabled.get() ? ChatFormatting.GREEN : ChatFormatting.RED, ChatFormatting.BOLD), false);
+		//~ if >=26.2 'allChanged()' -> 'invalidateCompiledGeometry(client.level, client.options, client.gameRenderer.mainCamera(), client.getBlockColors())'
+		client.levelRenderer.invalidateCompiledGeometry(client.level, client.options, client.gameRenderer.mainCamera(), client.getBlockColors());
+		//~ if >=26.2 'gui' -> 'gui.hud'
+		client.gui.hud.setOverlayMessage(Component.translatable(enabled.get() ? "substrate.toggle.on" : "substrate.toggle.off").withStyle(enabled.get() ? ChatFormatting.GREEN : ChatFormatting.RED, ChatFormatting.BOLD), false);
 	}
 
 	@SubscribeEvent
