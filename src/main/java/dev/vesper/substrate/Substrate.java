@@ -36,10 +36,11 @@ public class Substrate {
 	public static final Identifier CHANNEL = Identifier.fromNamespaceAndPath("substrate", "v1");
 	public static final CameraController cameraController = new CameraController();
 	public static KeyMapping KEY = new KeyMapping("substrate.toggle", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_R, KeyMapping.Category.MISC);
-	public static final AtomicBoolean enabled = new AtomicBoolean(true);
-	public static final AtomicBoolean serverDisabled = new AtomicBoolean(false);
-	public static final AtomicInteger floorY = new AtomicInteger(Integer.MIN_VALUE);
-	public static final AtomicInteger ceilingY = new AtomicInteger(Integer.MAX_VALUE);
+	public static volatile boolean enabled = true;
+	public static volatile boolean serverDisabled = false;
+	public static volatile int floorY = Integer.MIN_VALUE;
+	public static volatile int ceilingY = Integer.MAX_VALUE;
+	public static volatile boolean active = false;
 
 	public static void onInitialize() {
 		LOGGER.info("Initializing {} on {}", MOD_ID, Substrate.xplat().loader());
@@ -63,24 +64,27 @@ public class Substrate {
 	}
 
 	public static boolean shouldRender(@NotNull BlockPos pos, @NotNull Direction facing) {
-		if (floorY.get() == Integer.MIN_VALUE && ceilingY.get() == Integer.MAX_VALUE) return true;
-
-		// Render if not enabled.
-		if (!Substrate.enabled.get() || Substrate.serverDisabled.get()) return true;
+		if (!active) return true;
+		if (floorY == Integer.MIN_VALUE && ceilingY == Integer.MAX_VALUE) return true;
 
 		// Check the face.
 		final int y = pos.getY();
 
 		return switch (facing) {
 			case DOWN -> {
-				boolean isFloor = (floorY.get() != Integer.MIN_VALUE) && (y == floorY.get());
-				yield !isFloor || belowFloor.get();
+				boolean isFloor = (floorY != Integer.MIN_VALUE) && (y == floorY);
+				yield !isFloor || belowFloor;
 			}
 			case UP -> {
-				boolean isCeiling = (ceilingY.get() != Integer.MAX_VALUE) && (y == ceilingY.get());
-				yield !isCeiling || aboveCeiling.get();
+				boolean isCeiling = (ceilingY != Integer.MAX_VALUE) && (y == ceilingY);
+				yield !isCeiling || aboveCeiling;
 			}
 			default -> true;
 		};
+	}
+
+	public static void updateActive() {
+		active = enabled && !serverDisabled
+				&& (floorY != Integer.MIN_VALUE || ceilingY != Integer.MAX_VALUE);
 	}
 }

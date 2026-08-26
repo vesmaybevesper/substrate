@@ -24,8 +24,8 @@ public abstract class BlockOcclusionCacheMixin {
 
 	@Inject(method = "shouldDrawSide", at = @At("HEAD"), cancellable = true)
 	private void substrate$shouldDrawSide$head(Direction facing, CallbackInfoReturnable<Boolean> cir){
+		if (facing != Direction.DOWN && facing != Direction.UP) return;
 		if (Substrate.shouldRender(pos, facing)) return;
-
 		cir.setReturnValue(false);
 	}
 }

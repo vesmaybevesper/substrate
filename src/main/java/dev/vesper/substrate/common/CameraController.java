@@ -1,6 +1,5 @@
 package dev.vesper.substrate.common;
 
-import com.google.common.util.concurrent.AtomicDouble;
 import dev.vesper.substrate.Substrate;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
@@ -10,36 +9,35 @@ import net.minecraft.core.SectionPos;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static dev.vesper.substrate.Substrate.ceilingY;
 import static dev.vesper.substrate.Substrate.floorY;
 
 public class CameraController {
 
-	public static final AtomicBoolean belowFloor = new AtomicBoolean(false);
-	public static final AtomicBoolean aboveCeiling = new AtomicBoolean(false);
+	public static volatile boolean belowFloor = false;
+	public static volatile boolean aboveCeiling = false;
 
 
 	public void handleEndTick(){
-		if (!Substrate.enabled.get() || Substrate.serverDisabled.get()) return;
+		if (!Substrate.enabled || Substrate.serverDisabled) return;
 
 		//~ if >=26.2 'getMainCamera' -> 'mainCamera'
-		final AtomicDouble cameraY = new AtomicDouble(Minecraft.getInstance().gameRenderer.mainCamera().position().y);
-		final AtomicInteger currentFloorY = new AtomicInteger(floorY.get());
-		final AtomicInteger currentCeilingY = new AtomicInteger(ceilingY.get());
+		double cameraY = Minecraft.getInstance().gameRenderer.mainCamera().position().y;
+		int currentFloorY = floorY;
+		int currentCeilingY = ceilingY;
 
-		boolean newBelowFloor = (currentFloorY.get() != Integer.MIN_VALUE) && (cameraY.get() < currentFloorY.get());
-		boolean newAboveCeiling = (currentCeilingY.get() != Integer.MAX_VALUE) && (cameraY.get() > currentCeilingY.get());
+		boolean newBelowFloor = (currentFloorY != Integer.MIN_VALUE) && (cameraY < currentFloorY);
+		boolean newAboveCeiling = (currentCeilingY != Integer.MAX_VALUE) && (cameraY) > currentCeilingY;
 
-		if (newBelowFloor != belowFloor.get()){
-			belowFloor.set(newBelowFloor);
-			renderLayer(currentFloorY.get());
+		if (newBelowFloor != belowFloor){
+			belowFloor = newBelowFloor;
+			renderLayer(currentFloorY);
 		}
 
-		if (newAboveCeiling != aboveCeiling.get()){
-			aboveCeiling.set(newAboveCeiling);
-			renderLayer(currentCeilingY.get());
+		if (newAboveCeiling != aboveCeiling){
+			aboveCeiling = newAboveCeiling;
+			renderLayer(currentCeilingY);
 		}
 	}
 
@@ -70,13 +68,13 @@ public class CameraController {
 	}
 
 	public void updateVisibility(){
-		renderLayer(floorY.get());
-		renderLayer(ceilingY.get());
+		renderLayer(floorY);
+		renderLayer(ceilingY);
 	}
 
 	public void updateVisibilityAt(BlockPos center){
-		renderLayerAt(floorY.get(), center);
-		renderLayerAt(ceilingY.get(), center);
+		renderLayerAt(floorY, center);
+		renderLayerAt(ceilingY, center);
 	}
 
 	private void renderLayerAt(int y, BlockPos center) {

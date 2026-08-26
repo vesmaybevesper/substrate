@@ -1,1 +1,1 @@
-We're getting the band back together!
+We are not getting the band back together!

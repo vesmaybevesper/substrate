@@ -36,19 +36,20 @@ public class NeoforgeClientEventSubscriber {
 		if (!KEY.isDown()) return;
 		Minecraft client = Minecraft.getInstance();
 
-		if (serverDisabled.get()){
+		if (serverDisabled){
 			//~ if >=26.2 'gui' -> 'gui.hud'
 			client.gui.hud.setOverlayMessage(Component.translatable("substrate.toggle.server").withStyle(ChatFormatting.DARK_RED, ChatFormatting.BOLD), false);
 		}
 
-		boolean newState = !enabled.get();
-		enabled.set(newState);
+		boolean newState = !enabled;
+		enabled = newState;
+		Substrate.updateActive();
 		cameraController.updateVisibility();
 
 		//~ if >=26.2 'allChanged()' -> 'invalidateCompiledGeometry(client.level, client.options, client.gameRenderer.mainCamera(), client.getBlockColors())'
 		client.levelRenderer.invalidateCompiledGeometry(client.level, client.options, client.gameRenderer.mainCamera(), client.getBlockColors());
 		//~ if >=26.2 'gui' -> 'gui.hud'
-		client.gui.hud.setOverlayMessage(Component.translatable(enabled.get() ? "substrate.toggle.on" : "substrate.toggle.off").withStyle(enabled.get() ? ChatFormatting.GREEN : ChatFormatting.RED, ChatFormatting.BOLD), false);
+		client.gui.hud.setOverlayMessage(Component.translatable(enabled ? "substrate.toggle.on" : "substrate.toggle.off").withStyle(enabled? ChatFormatting.GREEN : ChatFormatting.RED, ChatFormatting.BOLD), false);
 	}
 
 	@SubscribeEvent
