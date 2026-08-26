@@ -1,6 +1,12 @@
 plugins {
 	id("mod-platform")
 	id("net.neoforged.moddev")
+	id("com.github.spotbugs") version "6.5.11"
+}
+
+spotbugs {
+	toolVersion = "4.10.4"
+	ignoreFailures=true
 }
 
 platform {
@@ -57,6 +63,7 @@ repositories{
 }
 
 dependencies {
+	spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0")
 	implementation("net.caffeinemc:sodium-neoforge-mod:${prop("deps.sodium")}")
 }
 

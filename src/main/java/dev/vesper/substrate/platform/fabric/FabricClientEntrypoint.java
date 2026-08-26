@@ -72,8 +72,8 @@ public class FabricClientEntrypoint implements ClientModInitializer {
 			return null;
 		}));
 
-		ClientPlayConnectionEvents.JOIN.register(((handler, sender, client) -> {serverDisabled.set(false);}));
-		ClientPlayConnectionEvents.DISCONNECT.register(((handler, client) -> {serverDisabled.set(false);}));
+		ClientPlayConnectionEvents.JOIN.register(((_, _, _) -> {serverDisabled.set(false);}));
+		ClientPlayConnectionEvents.DISCONNECT.register(((_, _) -> {serverDisabled.set(false);}));
 	}
 }
 //?}

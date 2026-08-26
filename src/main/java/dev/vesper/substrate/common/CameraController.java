@@ -17,8 +17,8 @@ import static dev.vesper.substrate.Substrate.floorY;
 
 public class CameraController {
 
-	public static AtomicBoolean belowFloor = new AtomicBoolean(false);
-	public static AtomicBoolean aboveCeiling = new AtomicBoolean(false);
+	public static final AtomicBoolean belowFloor = new AtomicBoolean(false);
+	public static final AtomicBoolean aboveCeiling = new AtomicBoolean(false);
 
 
 	public void handleEndTick(){

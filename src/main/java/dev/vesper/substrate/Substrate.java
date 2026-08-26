@@ -26,7 +26,7 @@ import static dev.vesper.substrate.common.CameraController.belowFloor;
 public class Substrate {
 
 	public static final String MOD_ID = /*$ mod_id*/ "substrate";
-	public static final String MOD_VERSION = /*$ mod_version*/ "4.2";
+	public static final String MOD_VERSION = /*$ mod_version*/ "0.1.0";
 	public static final String MOD_FRIENDLY_NAME = /*$ mod_name*/ "Substrate";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
@@ -38,8 +38,8 @@ public class Substrate {
 	public static KeyMapping KEY = new KeyMapping("substrate.toggle", InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_R, KeyMapping.Category.MISC);
 	public static final AtomicBoolean enabled = new AtomicBoolean(true);
 	public static final AtomicBoolean serverDisabled = new AtomicBoolean(false);
-	public static AtomicInteger floorY = new AtomicInteger(Integer.MIN_VALUE);
-	public static AtomicInteger ceilingY = new AtomicInteger(Integer.MAX_VALUE);
+	public static final AtomicInteger floorY = new AtomicInteger(Integer.MIN_VALUE);
+	public static final AtomicInteger ceilingY = new AtomicInteger(Integer.MAX_VALUE);
 
 	public static void onInitialize() {
 		LOGGER.info("Initializing {} on {}", MOD_ID, Substrate.xplat().loader());

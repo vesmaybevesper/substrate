@@ -1,6 +1,12 @@
 plugins {
 	id("mod-platform")
 	id("net.fabricmc.fabric-loom")
+	id("com.github.spotbugs") version "6.5.11"
+}
+
+spotbugs {
+	toolVersion = "4.10.4"
+	ignoreFailures=true
 }
 
 platform {
@@ -54,6 +60,7 @@ repositories{
 }
 
 dependencies {
+	spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.14.0")
 	minecraft("com.mojang:minecraft:${prop("deps.minecraft")}")
 	implementation(libs.fabric.loader)
 	implementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabric-api")}")
