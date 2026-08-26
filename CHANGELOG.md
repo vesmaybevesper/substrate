@@ -1,7 +1,7 @@
 - Update for Minecraft 26.1.2 & 26.2
 - Update to Sodium 0.9.x
 
-_This is a straight port, performance may be meh, I'll go over the mod soon and get it working better, I expect there are a few places I can improve_
+_This is a straight port, performance may be poor, I'll go over the mod soon and get it working better, I expect there are a few places I can improve_
 
 _Versions will be supported based on what version of Sodium they have (ie: everything with 0.9.x will be supported and when say 0.10.x comes I will support just those versions and so on)_
 
